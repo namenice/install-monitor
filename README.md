@@ -26,13 +26,13 @@ grafana-server -v
 ```
 Now, start the Grafana service and enable it to start at system
 ```sh
-systemctl start grafana-server
-systemctl enable grafana-server
-systemctl restart grafana-server
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+sudo systemctl restart grafana-server
 ```
 Check the status of the Grafana
 ```sh
-systemctl status grafana-server
+sudo systemctl status grafana-server
 ``` 
 
 ## Install Prometheus
