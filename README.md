@@ -188,3 +188,7 @@ Verify Node Exporter service
 curl 127.0.0.1:9100/metrics
 ```
 
+## Grafana dashboard
+```sh
+Dashboard ID : 11074
+```
