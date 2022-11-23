@@ -34,6 +34,11 @@ Check the status of the Grafana
 ```sh
 sudo systemctl status grafana-server
 ``` 
+Default user/password
+```sh
+user : admin
+password : admin
+```
 
 ## Install Prometheus
 Download Package Prometheus
