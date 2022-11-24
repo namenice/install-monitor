@@ -1,45 +1,57 @@
 # install-monitor
-## Install Grafana
-Updatte and Upgrade package
+## Install Node Exporter 
+Download Package Node Exporter
 ```sh
-sudo apt update -y
-sudo apt upgrade -y
+wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz
 ```
-First, install all required dependencies using the following command
+Unpackage Node Exporter
 ```sh
-sudo apt-get install -y apt-transport-https
-sudo apt-get install -y software-properties-common wget
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+tar xvfz node_exporter-1.4.0.linux-amd64.tar.gz
+cd node_exporter-1.4.0.linux-amd64
 ```
-Add this repository for stable releases  
+Create Node Exporter User
 ```sh
-echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo useradd --no-create-home --shell /bin/false node_exporter
 ```
-After you add the repository
+Copy node_exporter binary to /usr/local/bin and change the ownership to node_exporter user
 ```sh
-sudo apt-get update
-sudo apt-get install grafana -y
+sudo cp node_exporter /usr/local/bin
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 ```
-Verify Grafana server
+Create a node exporter service file
 ```sh
-grafana-server -v
+sudo vi /etc/systemd/system/node_exporter.service
 ```
-Now, start the Grafana service and enable it to start at system
+Copy the following content to the file
 ```sh
-sudo systemctl start grafana-server
-sudo systemctl enable grafana-server
-sudo systemctl restart grafana-server
-```
-Check the status of the Grafana
-```sh
-sudo systemctl status grafana-server
-``` 
-Default user/password
-```sh
-user : admin
-password : admin
-```
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
 
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+```
+Reload the systemd service
+```sh
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter.service 
+sudo systemctl restart node_exporter.service
+```
+Check the prometheus service status
+```sh
+sudo systemctl status node_exporter.service
+```
+Verify Node Exporter service
+```sh
+curl 127.0.0.1:9100/metrics
+```
 ## Install Prometheus
 Download Package Prometheus
 ```sh
@@ -133,61 +145,46 @@ Access Prometheus Web UI
 ```sh
 http://<prometheus-ip>:9090/
 ```
-
-## Install Node Exporter 
-Download Package Node Exporter
+## Install Grafana
+Updatte and Upgrade package
 ```sh
-wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz
+sudo apt update -y
+sudo apt upgrade -y
 ```
-Unpackage Node Exporter
+First, install all required dependencies using the following command
 ```sh
-tar xvfz node_exporter-1.4.0.linux-amd64.tar.gz
-cd node_exporter-1.4.0.linux-amd64
+sudo apt-get install -y apt-transport-https
+sudo apt-get install -y software-properties-common wget
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
 ```
-Create Node Exporter User
+Add this repository for stable releases  
 ```sh
-sudo useradd --no-create-home --shell /bin/false node_exporter
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 ```
-Copy node_exporter binary to /usr/local/bin and change the ownership to node_exporter user
+After you add the repository
 ```sh
-sudo cp node_exporter /usr/local/bin
-sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+sudo apt-get update
+sudo apt-get install grafana -y
 ```
-Create a node exporter service file
+Verify Grafana server
 ```sh
-sudo vi /etc/systemd/system/node_exporter.service
+grafana-server -v
 ```
-Copy the following content to the file
+Now, start the Grafana service and enable it to start at system
 ```sh
-[Unit]
-Description=Node Exporter
-Wants=network-online.target
-After=network-online.target
-
-[Service]
-User=node_exporter
-Group=node_exporter
-Type=simple
-ExecStart=/usr/local/bin/node_exporter
-
-[Install]
-WantedBy=multi-user.target
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+sudo systemctl restart grafana-server
 ```
-Reload the systemd service
+Check the status of the Grafana
 ```sh
-sudo systemctl daemon-reload
-sudo systemctl start node_exporter.service 
-sudo systemctl restart node_exporter.service
-```
-Check the prometheus service status
+sudo systemctl status grafana-server
+``` 
+Default user/password
 ```sh
-sudo systemctl status node_exporter.service
+user : admin
+password : admin
 ```
-Verify Node Exporter service
-```sh
-curl 127.0.0.1:9100/metrics
-```
-
 ## Grafana dashboard
 ```sh
 Dashboard ID : 11074
