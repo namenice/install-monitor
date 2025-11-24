@@ -3,11 +3,15 @@
 Download Package Node Exporter
 ```sh
 wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
 ```
 Unpackage Node Exporter
 ```sh
 tar xvfz node_exporter-1.4.0.linux-amd64.tar.gz
 cd node_exporter-1.4.0.linux-amd64
+
+tar xvfz node_exporter-1.10.2.linux-amd64.tar.gz
+cd node_exporter-1.10.2.linux-amd64
 ```
 Create Node Exporter User
 ```sh
