@@ -136,6 +136,15 @@ Access Prometheus Web UI
 http://<ip-address>:9090/
 ```
 ## Install Grafana
+REF : https://grafana.com/grafana/download?edition=oss
+Download Package Node Exporter
+
+
+
+
+
+
+
 Updatte and Upgrade package
 ```sh
 sudo apt update -y
