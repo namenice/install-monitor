@@ -71,8 +71,8 @@ sudo chown prometheus:prometheus /var/lib/prometheus
 ```
 Copy prometheus and promtool binary to /usr/local/bin and change the ownership to prometheus user
 ```sh
-sudo cp prometheus /usr/local/bin/
-sudo cp promtool /usr/local/bin/
+sudo cp /mnt/prometheus-3.7.3.linux-amd64/prometheus /usr/local/bin/
+sudo cp /mnt/prometheus-3.7.3.linux-amd64/promtool /usr/local/bin/
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
 sudo chown prometheus:prometheus /usr/local/bin/promtool
 ```
