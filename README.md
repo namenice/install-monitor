@@ -58,14 +58,21 @@ Verify Node Exporter service
 curl 127.0.0.1:9100/metrics
 ```
 ## Install Prometheus
-Download Package Prometheus
+REF : https://github.com/prometheus/node_exporter/releases Download Package Prometheus
 ```sh
 wget https://github.com/prometheus/prometheus/releases/download/v2.40.2/prometheus-2.40.2.linux-amd64.tar.gz
+
+wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz
 ```
 Unpackag Prometheus
 ```sh
 tar xvfz prometheus-2.40.2.linux-amd64.tar.gz
 cd prometheus-2.40.2.linux-amd64
+
+tar xvfz prometheus-3.7.3.linux-amd64.tar.gz
+cd prometheus-3.7.3.linux-amd64
+
+
 ```
 Create a Prometheus user, required directories, and make Prometheus the user as the owner of those directories
 ```sh
