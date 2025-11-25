@@ -139,51 +139,67 @@ http://<ip-address>:9090/
 REF : https://grafana.com/grafana/download?edition=oss
 Download Package Node Exporter
 
-
-
-
-
-
-
-Updatte and Upgrade package
 ```sh
-sudo apt update -y
-sudo apt upgrade -y
+sudo wget https://dl.grafana.com/grafana/release/12.3.0/grafana_12.3.0_19497075765_linux_amd64.tar.gz -P /mnt/
+sudo tar zxvf /mnt/grafana_12.3.0_19497075765_linux_amd64.tar.gz -C /mnt/
 ```
-First, install all required dependencies using the following command
+
+Create a user account for Grafana on your system
 ```sh
-sudo apt-get install -y apt-transport-https
-sudo apt-get install -y software-properties-common wget
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo useradd --no-create-home --shell /bin/false grafana
 ```
-Add this repository for stable releases  
+Move Binary to /usr/local/grafana
 ```sh
-echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo mv /mnt/grafana-12.3.0 /usr/local/grafana
 ```
-After you add the repository
+Change the owner of /usr/local/grafana to Grafana users
 ```sh
-sudo apt-get update
-sudo apt-get install grafana -y
+sudo chown -R grafana:grafana /usr/local/grafana
 ```
-Verify Grafana server
+Create a Grafana server systemd unit file
 ```sh
-grafana-server -v
+sudo vi /etc/systemd/system/grafana-server.service
 ```
-Now, start the Grafana service and enable it to start at system
+Add the following to the unit file in a text editor of your choice
 ```sh
-sudo systemctl start grafana-server
+[Unit]
+Description=Grafana Server
+After=network.target
+
+[Service]
+User=grafana
+Group=grafana
+ExecStart=/usr/local/grafana/bin/grafana server --homepath=/usr/local/grafana
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+Reload the systemd service
+```sh
 sudo systemctl enable grafana-server
-sudo systemctl restart grafana-server
+sudo systemctl daemon-reload
+sudo systemctl start grafana-server
 ```
-Check the status of the Grafana
+Change the owner of path grafana data
 ```sh
+sudo chown -R grafana:users /usr/local/grafana/data
+```
+Reload Service
+```sh
+sudo systemctl restart grafana-server
 sudo systemctl status grafana-server
-``` 
+```
+Access Grafana Web UI
+```sh
+http://<ip-address>:3000/
+```
 Default user/password
 ```sh
 user : admin
 password : admin
 ```
+
 ## Grafana dashboard
 ```sh
 Dashboard ID : 11074
