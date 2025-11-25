@@ -55,18 +55,17 @@ curl 127.0.0.1:9100/metrics
 ## Install Prometheus
 REF : https://github.com/prometheus/node_exporter/releases Download Package Prometheus
 ```sh
-wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz -P /mnt/
 ```
 Unpackag Prometheus
 ```sh
-tar xvfz prometheus-3.7.3.linux-amd64.tar.gz
-cd prometheus-3.7.3.linux-amd64
+sudo tar xvfz /mnt/prometheus-3.7.3.linux-amd64.tar.gz -C /mnt/
 ```
 Create a Prometheus user, required directories, and make Prometheus the user as the owner of those directories
 ```sh
 sudo useradd --no-create-home --shell /bin/false prometheus
-sudo mkdir /etc/prometheus  
-sudo mkdir /var/lib/prometheus
+sudo mkdir -p /etc/prometheus  
+sudo mkdir -p /var/lib/prometheus
 sudo chown prometheus:prometheus /etc/prometheus
 sudo chown prometheus:prometheus /var/lib/prometheus
 ```
