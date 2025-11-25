@@ -8,7 +8,6 @@ sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/
 Unpackage Node Exporter
 ```sh
 tar xvfz /mnt/node_exporter-1.10.2.linux-amd64.tar.gz
-#cd node_exporter-1.10.2.linux-amd64
 ```
 Create Node Exporter User
 ```sh
@@ -16,7 +15,7 @@ sudo useradd --no-create-home --shell /bin/false node_exporter
 ```
 Copy node_exporter binary to /usr/local/bin and change the ownership to node_exporter user
 ```sh
-sudo cp /mnt/node_exporter-1.10.2.linux-amd64/node_exporter/node_exporter /usr/local/bin
+sudo cp /mnt/node_exporter-1.10.2.linux-amd64/node_exporter /usr/local/bin
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 ```
 Create a node exporter service file
