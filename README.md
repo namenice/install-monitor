@@ -55,7 +55,7 @@ curl 127.0.0.1:9100/metrics
 ## Install Prometheus
 REF : https://github.com/prometheus/node_exporter/releases Download Package Prometheus
 ```sh
-wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz -P /mnt/
+sudo wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz -P /mnt/
 ```
 Unpackag Prometheus
 ```sh
