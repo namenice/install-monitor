@@ -3,14 +3,10 @@
 REF : https://github.com/prometheus/node_exporter/releases
 Download Package Node Exporter
 ```sh
-wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz
 wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
 ```
 Unpackage Node Exporter
 ```sh
-tar xvfz node_exporter-1.4.0.linux-amd64.tar.gz
-cd node_exporter-1.4.0.linux-amd64
-
 tar xvfz node_exporter-1.10.2.linux-amd64.tar.gz
 cd node_exporter-1.10.2.linux-amd64
 ```
@@ -60,19 +56,12 @@ curl 127.0.0.1:9100/metrics
 ## Install Prometheus
 REF : https://github.com/prometheus/node_exporter/releases Download Package Prometheus
 ```sh
-wget https://github.com/prometheus/prometheus/releases/download/v2.40.2/prometheus-2.40.2.linux-amd64.tar.gz
-
 wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz
 ```
 Unpackag Prometheus
 ```sh
-tar xvfz prometheus-2.40.2.linux-amd64.tar.gz
-cd prometheus-2.40.2.linux-amd64
-
 tar xvfz prometheus-3.7.3.linux-amd64.tar.gz
 cd prometheus-3.7.3.linux-amd64
-
-
 ```
 Create a Prometheus user, required directories, and make Prometheus the user as the owner of those directories
 ```sh
@@ -88,13 +77,6 @@ sudo cp prometheus /usr/local/bin/
 sudo cp promtool /usr/local/bin/
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
 sudo chown prometheus:prometheus /usr/local/bin/promtool
-```
-Move the consoles and console_libraries directories to /etc/prometheus folder and change the ownership to prometheus user
-```sh
-sudo cp -r consoles /etc/prometheus/
-sudo cp -r console_libraries /etc/prometheus/
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 ```
 Create Prometheus config
 ```sh
@@ -136,9 +118,7 @@ Group=prometheus
 Type=simple
 ExecStart=/usr/local/bin/prometheus \
     --config.file /etc/prometheus/prometheus.yml \
-    --storage.tsdb.path /var/lib/prometheus/ \
-    --web.console.templates=/etc/prometheus/consoles \
-    --web.console.libraries=/etc/prometheus/console_libraries
+    --storage.tsdb.path /var/lib/prometheus
 
 [Install]
 WantedBy=multi-user.target
@@ -155,7 +135,7 @@ sudo systemctl status prometheus
 ```
 Access Prometheus Web UI
 ```sh
-http://<prometheus-ip>:9090/
+http://<ip-address>:9090/
 ```
 ## Install Grafana
 Updatte and Upgrade package
