@@ -7,7 +7,7 @@ sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/
 ```
 Unpackage Node Exporter
 ```sh
-tar xvfz /mnt/node_exporter-1.10.2.linux-amd64.tar.gz
+sudo tar xvfz /mnt/node_exporter-1.10.2.linux-amd64.tar.gz -C /mnt/
 ```
 Create Node Exporter User
 ```sh
