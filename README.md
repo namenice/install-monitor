@@ -183,7 +183,7 @@ sudo systemctl start grafana-server
 ```
 Change the owner of path grafana data
 ```sh
-sudo chown -R grafana:users /usr/local/grafana/data
+sudo chown -R grafana:grafana /usr/local/grafana/data
 ```
 Reload Service
 ```sh
